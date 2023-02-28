@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -27,7 +29,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
@@ -38,7 +40,15 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $form_data = $this->validation($request->all());
+
+        $newProject = new Project();
+        $form_data['slug'] = Str::slug($newProject->title, '-');
+        $newProject->fill($form_data);
+
+        $newProject -> save();
+
+        return redirect()->route('admin.projects.index');
     }
 
     /**
@@ -84,5 +94,19 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+    }
+
+    private function validation($data){
+        $validator = Validator::make($data, [
+            'title' => 'required|max:150',
+            'content' => 'nullable'
+        ],
+        [
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.max' => 'Il titolo non piò superare :max parole',
+
+        ])->validate();
+
+        return $validator;
     }
 }

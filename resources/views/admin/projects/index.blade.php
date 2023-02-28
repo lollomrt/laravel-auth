@@ -5,7 +5,7 @@
             <div class="col">
                 <div class="container bg-light my-3 py-3 d-flex justify-content-between align-items-center">
                     <h1 class="text-uppercase">Projects</h1>
-                    <a class="btn btn-success" href="#"><i class="fa-solid fa-plus me-2"></i>Aggiungi Progetto</a>
+                    <a class="btn btn-success" href="{{ route('admin.projects.create') }}"><i class="fa-solid fa-plus me-2"></i>Aggiungi Progetto</a>
                 </div>
             </div>
         </div>
