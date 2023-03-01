@@ -40,7 +40,7 @@
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a title="Visualizza" class="btn btn-square btn-sm py-2 btn-primary" href="{{ route('admin.projects.show', $project->slug) }}"><i class="fa-solid fa-eye"></i></a>
-                                        <a title="Modifica" class="btn btn-square btn-sm py-2 btn-warning" href="#"><i class="fa-solid fa-pencil"></i></a>
+                                        <a title="Modifica" class="btn btn-square btn-sm py-2 btn-warning" href="{{ route('admin.projects.edit', $project->slug) }}"><i class="fa-solid fa-pencil"></i></a>
                                         <a title="Elimina" class="btn btn-square btn-sm py-2 btn-danger" href="#"><i class="fa-solid fa-trash-can"></i></a>
                                     </div>   
                                 </td>
