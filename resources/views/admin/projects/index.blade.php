@@ -9,6 +9,15 @@
                 </div>
             </div>
         </div>
+        @if(session('message'))
+        <div class="row">
+            <div class="col">
+                <div class="container alert alert-success">
+                    {{ session('message') }}
+                </div>
+            </div>
+        </div>
+        @endif
         <div class="row">
             <div class="col">
                 <table class="table table-bordered table-striped">
@@ -30,8 +39,9 @@
                                 <td>{{ $project->content }}</td>
                                 <td>
                                     <div class="d-flex gap-2">
-                                        <a class="btn btn-square px-2 btn-sm py-2 btn-warning" href="#"><i class="fa-solid fa-pencil"></i></a>
-                                        <a class="btn btn-square px-2 btn-sm py-2 btn-danger" href="#"><i class="fa-solid fa-trash-can"></i></a>
+                                        <a title="Visualizza" class="btn btn-square btn-sm py-2 btn-primary" href="{{ route('admin.projects.show', $project->slug) }}"><i class="fa-solid fa-eye"></i></a>
+                                        <a title="Modifica" class="btn btn-square btn-sm py-2 btn-warning" href="#"><i class="fa-solid fa-pencil"></i></a>
+                                        <a title="Elimina" class="btn btn-square btn-sm py-2 btn-danger" href="#"><i class="fa-solid fa-trash-can"></i></a>
                                     </div>   
                                 </td>
                             </tr>

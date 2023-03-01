@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Str;
@@ -40,15 +40,15 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $form_data = $this->validation($request->all());
-
+        $form_data = $request->validated();
+        $slug = Project::generateSlug($request->title);
+        $form_data['slug'] = $slug;
         $newProject = new Project();
-        $form_data['slug'] = Str::slug($newProject->title, '-');
         $newProject->fill($form_data);
 
         $newProject -> save();
 
-        return redirect()->route('admin.projects.index');
+        return redirect()->route('admin.projects.index')->with('message', 'Il progetto è stato creato con successo!');
     }
 
     /**
@@ -59,7 +59,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -96,17 +96,17 @@ class ProjectController extends Controller
         //
     }
 
-    private function validation($data){
-        $validator = Validator::make($data, [
-            'title' => 'required|max:150',
-            'content' => 'nullable'
-        ],
-        [
-            'title.required' => 'Il titolo è obbligatorio',
-            'title.max' => 'Il titolo non piò superare :max parole',
+    // private function validation($data){
+    //     $validator = Validator::make($data, [
+    //         'title' => 'required|max:150',
+    //         'content' => 'nullable'
+    //     ],
+    //     [
+    //         'title.required' => 'Il titolo è obbligatorio',
+    //         'title.max' => 'Il titolo non piò superare :max parole',
 
-        ])->validate();
+    //     ])->validate();
 
-        return $validator;
-    }
+    //     return $validator;
+    // }
 }
