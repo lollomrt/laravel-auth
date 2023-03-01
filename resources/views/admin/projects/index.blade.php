@@ -41,7 +41,12 @@
                                     <div class="d-flex gap-2">
                                         <a title="Visualizza" class="btn btn-square btn-sm py-2 btn-primary" href="{{ route('admin.projects.show', $project->slug) }}"><i class="fa-solid fa-eye"></i></a>
                                         <a title="Modifica" class="btn btn-square btn-sm py-2 btn-warning" href="{{ route('admin.projects.edit', $project->slug) }}"><i class="fa-solid fa-pencil"></i></a>
-                                        <a title="Elimina" class="btn btn-square btn-sm py-2 btn-danger" href="#"><i class="fa-solid fa-trash-can"></i></a>
+                                        <form action="{{ route('admin.projects.destroy', $project->slug)}}" method="POST" style="
+                                            margin-block-end: 0em;" class="d-inline-block">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button title="Elimina" class="btn btn-square btn-sm py-2 btn-danger" type="submit"><i class="fa-solid fa-trash-can"></i></button>
+                                        </form>
                                     </div>   
                                 </td>
                             </tr>
